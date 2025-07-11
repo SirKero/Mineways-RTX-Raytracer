@@ -5,6 +5,8 @@ A simple hardware-raytracer for Minecraft scenes exported with [Mineways](https:
 While exporting with [Mineways](https://www.realtimerendering.com/erich/minecraft/public/mineways/) check the "Export individual blocks" checkbox for expected results:
 ![](Docs/MinewaysSettings.png)
 
+Place the exported `.obj`, `.mtl`, and the texture folder into the `MinecraftModels` directory to ensure the renderer can locate the model.
+
 ## Requirements
 
 * Windows or Linux (x64 or ARM64)
