@@ -1,0 +1,9 @@
+/.vs
+/.vscode
+/aftermath/
+/bin/
+/build*/
+/donut-*
+/nvapi/
+/MinecraftModels/*
+!/MinecraftModels/*.txt

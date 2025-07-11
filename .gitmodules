@@ -1,0 +1,6 @@
+[submodule "external/Donut"]
+	path = external/Donut
+	url = https://github.com/NVIDIA-RTX/Donut.git
+[submodule "external/tinyobjloader"]
+	path = external/tinyobjloader
+	url = https://github.com/tinyobjloader/tinyobjloader.git
