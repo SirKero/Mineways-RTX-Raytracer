@@ -300,6 +300,8 @@ void Renderer::Render(nvrhi::IFramebuffer* framebuffer) {
 	constants.emissiveStrength = m_ui->emissiveStrength;
 	constants.cameraNear = m_ui->cameraNear;
 	constants.cameraFar = m_ui->cameraFar;
+	constants.ambientSpecular = m_ui->ambientSpecularStrength;
+	constants.shadowRayOffset = m_ui->shadowRayBias;
 	m_CommandList->writeBuffer(m_ConstantBuffer, &constants, sizeof(constants));
 
 	nvrhi::rt::State state;

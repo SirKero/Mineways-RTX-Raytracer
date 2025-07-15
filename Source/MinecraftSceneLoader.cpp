@@ -269,7 +269,7 @@ void MinecraftSceneLoader::AddGeometryToScene(const tinyobj::attrib_t& attribs, 
             aabbMaterials.posXMatID = shapes[s].mesh.material_ids[6];
             aabbMaterials.posYMatID = shapes[s].mesh.material_ids[8];
             aabbMaterials.posZMatID = shapes[s].mesh.material_ids[10];
-            aabbMaterials.padding = 0;
+            aabbMaterials.padding = int2(0);
 
             m_AABBs.push_back(aabb);
             m_AABBMaterials.push_back(aabbMaterials);

@@ -15,7 +15,6 @@ struct HitInfo
     float2 uv : PAYLOAD_UV;
     float hitT : PAYLOAD_HITT;
     int hitType : PAYLOAD_HITTYPE;
-   
 };
 
 struct Attributes
@@ -35,12 +34,12 @@ ConstantBuffer<ConstBuffer> g_CB : register(b0);
 VK_BINDING(0, 1) Texture2D t_BindlessTextures[] : register(t0, space1);
 
 // ---[ Resources ]---
-RWTexture2D<float4> RTOutput : register(u0);
+RWTexture2D<unorm float4> RTOutput : register(u0);
 RaytracingAccelerationStructure SceneBVH : register(t0);
 StructuredBuffer<uint> g_IndexData : register(t1);
 StructuredBuffer<VertexData> g_VertexData : register(t2);
 StructuredBuffer<float2> g_AABBData : register(t3);
-StructuredBuffer<uint> g_TriMaterialID : register(t4);
+StructuredBuffer<int> g_TriMaterialID : register(t4);
 StructuredBuffer<AABBMaterials> g_AABBMaterialID : register(t5);
 StructuredBuffer<MaterialConstants> g_Material : register(t6);
 
@@ -155,7 +154,6 @@ void GetTriangleVertices(uint primitiveIndex,out Vertex vertices[3]){
 
 int GetAABBMaterialID(AABBMaterials aabbMat, int side)
 {
-    [branch]
     switch (side)
     {
         case 0:
@@ -283,9 +281,9 @@ void EvaluateMaterialTextures(inout MaterialConstants material, float2 uv , inou
 bool RayShadowTest(float3 posW, float3 faceN, float3 toLight)
 {
     RayDesc shadowRay;
-    shadowRay.Origin = posW + faceN * 1e-4;
+    shadowRay.Origin = posW + faceN * g_CB.shadowRayOffset;
     shadowRay.Direction = toLight;
-    shadowRay.TMin = 1e-4;
+    shadowRay.TMin = g_CB.shadowRayOffset;
     shadowRay.TMax = g_CB.cameraFar; //Approximate with camera far
     
     RayQuery<RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH> rayQuery;
@@ -489,6 +487,7 @@ void RayGen()
         float3 reflectDirection = normalize(reflect(ray.Direction, payload.normal));
         float3 H = normalize(-ray.Direction + reflectDirection);
         float3 reflectionAmbient = Schlick_Fresnel(material.specularColor, saturate(dot(-ray.Direction,H))) * material.specularColor * kEnviromentColor;
+        reflectionAmbient *= g_CB.ambientSpecular;
         
         float3 diffuseRadiance = float3(0,0,0);
         float3 specularRadiance = float3(0,0,0);

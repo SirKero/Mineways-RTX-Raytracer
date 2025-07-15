@@ -129,8 +129,15 @@ void UserInterface::buildUI()
 		IndentFloat("Ambient:", "##Ambient", &m_ui->ambient, 0.0001f, 0.f, 1.f, " % .4f");
 
 		IndentFloat("Emissive Strength:", "##EmissiveStrength", &m_ui->emissiveStrength, 0.01f, 0.f, FLT_MAX, " % .2f");
+
+		IndentFloat("Specular Ambient", "##SpecularAmbient", &m_ui->ambientSpecularStrength, 0.0001f, 0.f, FLT_MAX, " % .4f");
 	}
-		
+
+	if (ImGui::CollapsingHeader("Shadow")) //, ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		IndentFloat("Ray Shadow Offset", "##RayShadowOffset", &m_ui->shadowRayBias, 0.0000001f, 0.f, FLT_MAX, " % .8f");
+	}
+
 	// End of window
 	ImGui::End();
 }

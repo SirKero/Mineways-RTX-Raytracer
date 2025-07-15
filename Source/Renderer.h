@@ -37,6 +37,10 @@ struct UIData {
 	//Rendering settings
 	float ambient = 0.1f;
 	float emissiveStrength = 1.0f;
+	float ambientSpecularStrength = 1.f;
+	
+	//Shadow
+	float shadowRayBias = 0.03;
 	
 	//Scene selection
 	int selectedScene = -1;

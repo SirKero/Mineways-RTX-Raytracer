@@ -13,6 +13,10 @@ struct ConstBuffer {
 	float emissiveStrength;
 	float cameraNear;
 	float cameraFar;
+
+	float ambientSpecular;
+	float shadowRayOffset;
+	float2 padding;
 };
 
 struct CBMetalRoughTexGen {
